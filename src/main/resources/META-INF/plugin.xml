@@ -1,0 +1,40 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>star.intellijplugin.pkgfinder</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>Package Finder</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <!-- email="support@star.com" url="https://www.example.com" -->
+    <vendor>Star</vendor>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <resource-bundle>messages.PackageFinder</resource-bundle>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="Package Finder"
+                    secondary="true"
+                    icon="/icons/packageFinder.svg"
+                    anchor="bottom"
+                    factoryClass="star.intellijplugin.pkgfinder.PackageFinderToolWindowFactory"/>
+        <applicationConfigurable
+            parentId="tools"
+            id="star.intellijplugin.pkgfinder.setting.PackageFinderSettingWindow"
+            instance="star.intellijplugin.pkgfinder.setting.PackageFinderSettingWindow"
+            bundle="messages.PackageFinder"
+            key="settings.name"/>
+        <notificationGroup
+            id="package.finder.notification.general"
+            displayType="BALLOON"
+            key="notification.group.general.name"
+        />
+    </extensions>
+</idea-plugin>
