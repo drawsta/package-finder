@@ -76,7 +76,7 @@ data class LocalDependency(
                     from(model, pomPath.toCanonicalPath())
                 }
             } catch (e: Exception) {
-                log.error("Failed to parse POM: ${e.localizedMessage}", e)
+                log.warn("Failed to parse POM: ${e.localizedMessage}", e)
                 null
             }
         }
