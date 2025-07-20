@@ -53,6 +53,19 @@ class GradlePluginPortalServiceTest {
         println(otherVersions)
     }
 
+    @Test
+    fun `get prev and next pageLinks`() {
+        search(
+            "https://plugins.gradle.org/search?term=spring&page=18",
+            { it.select("div.page-link.clearfix a.btn.btn-default") }) {
+            it.forEach { element ->
+                when (element.text()) {
+                    "Previous", "Next" -> println(element.attr("href"))
+                }
+            }
+        }
+    }
+
     private fun search(url: String, selectAction: (Document) -> List<Element>, parseAction: (List<Element>) -> Unit) {
         try {
             val document: Document = Jsoup.connect(url)

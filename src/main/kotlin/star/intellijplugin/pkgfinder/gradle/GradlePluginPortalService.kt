@@ -9,7 +9,7 @@ import java.io.IOException
 
 /**
  * @author drawsta
- * @LastModified: 2025-07-15
+ * @LastModified: 2025-07-20
  * @since 2025-07-15
  */
 object GradlePluginPortalService {
@@ -56,11 +56,16 @@ object GradlePluginPortalService {
             )
         }
 
-        val pageLinks: List<Element> = document.select("div.page-link.clearfix a.btn.btn-default")
-        return when (pageLinks.size) {
-            1 -> Triple(pluginInfos, "", pageLinks.last().attr("href"))
-            2 -> Triple(pluginInfos, pageLinks.first().attr("href"), pageLinks.last().attr("href"))
-            else -> Triple(pluginInfos, "", "")
+        val pageLinks = document.select("div.page-link.clearfix a.btn.btn-default")
+        var prevHref = ""
+        var nextHref = ""
+        for (element in pageLinks) {
+            val href = element.attr("href")
+            when (element.text()) {
+                "Previous" -> prevHref = href
+                "Next" -> nextHref = href
+            }
         }
+        return Triple(pluginInfos, prevHref, nextHref)
     }
 }
