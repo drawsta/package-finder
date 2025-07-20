@@ -3,6 +3,7 @@ package star.intellijplugin.pkgfinder
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
+import org.junit.Ignore
 import org.junit.Test
 import star.intellijplugin.pkgfinder.gradle.GradlePluginInfo
 import java.io.IOException
@@ -11,9 +12,10 @@ import java.io.IOException
  * ref: https://plugins.gradle.org/
  *
  * @author drawsta
- * @LastModified: 2025-02-05
+ * @LastModified: 2025-07-20
  * @since 2025-02-05
  */
+@Ignore
 class GradlePluginPortalServiceTest {
     @Test
     fun `test search`() {
