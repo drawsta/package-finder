@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [0.24.2] - 2025-07-21
+
+[Unreleased]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v0.24.0...HEAD%0D%0A%0A### Changed%0D%0A%0A- Log local POM parsing failure as warning%0D%0A%0A### Fixed%0D%0A%0A- Pagination buttons in Gradle plugin search
+
 ## [0.24.0] - 2025-07-18
 
 ### Added
@@ -144,3 +148,22 @@
 
 - Initial project scaffold
 - Add Package Finder tool window UI
+
+[Unreleased]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v0.24.2...HEAD
+[0.24.2]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v0.24.0...v0.24.2
+[0.24.0]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v0.23.0...v0.24.0
+[0.23.0]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v0.22.0...v0.23.0
+[0.22.0]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v0.21.0...v0.22.0
+[0.21.0]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v0.13.0...v0.21.0
+[0.13.0]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v0.9.0...v0.13.0
+[0.9.0]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v0.8.0...v0.9.0
+[0.8.0]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v0.7.0...v0.8.0
+[0.7.0]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v0.6.1...v0.7.0
+[0.6.1]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v0.6.0...v0.6.1
+[0.6.0]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v0.5.0...v0.6.0
+[0.5.0]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v0.4.0...v0.5.0
+[0.4.0]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v0.3.0...v0.4.0
+[0.3.0]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v0.0.1...v0.1.0
+[0.0.1]: https://github.com/JetBrains/intellij-platform-plugin-template/commits/v0.0.1
