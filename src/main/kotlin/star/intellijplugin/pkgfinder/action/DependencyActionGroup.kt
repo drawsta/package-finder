@@ -15,7 +15,7 @@ import java.awt.event.MouseEvent
  * Maven Dependency 表格行右键菜单 Action
  *
  * @author drawsta
- * @LastModified: 2025-07-13
+ * @LastModified: 2025-09-08
  * @since 2025-01-26
  */
 object DependencyActionGroup : ActionGroup() {
@@ -38,9 +38,10 @@ object DependencyActionGroup : ActionGroup() {
                 }
 
                 listOfNotNull(
-                    ecMap["-sources.jar"]?.let { DownloadArtifactAction.Companion.forSource(centralDependency, it) },
-                    ecMap[".jar"]?.let { DownloadArtifactAction.Companion.forJar(centralDependency, it) },
-                    ecMap["-javadoc.jar"]?.let { DownloadArtifactAction.Companion.forJavadoc(centralDependency, it) }
+                    ecMap["-sources.jar"]?.let { DownloadArtifactAction.forSource(centralDependency, it) },
+                    ecMap[".jar"]?.let { DownloadArtifactAction.forJar(centralDependency, it) },
+                    ecMap["-javadoc.jar"]?.let { DownloadArtifactAction.forJavadoc(centralDependency, it) },
+                    SearchInMavenRepositoryAction(selectedDependency)
                 ).toTypedArray()
             }
 
@@ -60,21 +61,21 @@ object DependencyActionGroup : ActionGroup() {
                 listOfNotNull(
                     // fixme: extension key does not contain sources.jar and javadoc.jar
                     extMap["sources.jar"]?.let {
-                        DownloadArtifactAction.Companion.forSource(
+                        DownloadArtifactAction.forSource(
                             selectedDependency,
                             it.downloadUrl
                         )
                     },
-                    extMap["jar"]?.let { DownloadArtifactAction.Companion.forJar(selectedDependency, it.downloadUrl) },
+                    extMap["jar"]?.let { DownloadArtifactAction.forJar(selectedDependency, it.downloadUrl) },
                     extMap["javadoc.jar"]?.let {
-                        DownloadArtifactAction.Companion.forJavadoc(
+                        DownloadArtifactAction.forJavadoc(
                             selectedDependency,
                             it.downloadUrl
                         )
                     },
-                    extMap["pom"]?.let { DownloadArtifactAction.Companion.forPom(selectedDependency, it.downloadUrl) },
+                    extMap["pom"]?.let { DownloadArtifactAction.forPom(selectedDependency, it.downloadUrl) },
                     extMap["module"]?.let {
-                        DownloadArtifactAction.Companion.forModule(
+                        DownloadArtifactAction.forModule(
                             selectedDependency,
                             it.downloadUrl
                         )
