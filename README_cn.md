@@ -50,8 +50,6 @@
 
 安装就不用说了，插件市场直接搜索 package finder，安装后重启 IDEA 即可。
 
-<iframe width="245px" height="48px" src="https://plugins.jetbrains.com/embeddable/install/27946"></iframe>
-
 需要注意的是，目前版本只支持 2024.2+ 版本，2024.2 以下版本不支持的原因是，
 用了较新的一个 Http 请求 API，主要是方便使用 IDE 配置里的代理，如果配置了的话，
 因为中央仓库和 Gradle 插件的搜索 api 服务，大陆有时是不太好访问的，需要代理。

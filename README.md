@@ -42,8 +42,6 @@ Search packages across multiple repositories with ease.
 
 Simply search for Package Finder in the plugin marketplace, install it, and restart your IDE.
 
-<iframe width="245px" height="48px" src="https://plugins.jetbrains.com/embeddable/install/27946"></iframe>
-
 > Alternatively, you can download the ZIP package
 > from the [Releases](https://github.com/drawsta/package-finder/releases) page
 > and install it manually via **Plugins > Install Plugin from Disk...**.
