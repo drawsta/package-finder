@@ -15,7 +15,9 @@ import com.intellij.ui.dsl.builder.bindItem
 import com.intellij.ui.dsl.builder.panel
 import com.intellij.util.ui.NamedColorUtil
 import star.intellijplugin.pkgfinder.PackageFinderBundle.message
+import star.intellijplugin.pkgfinder.listener.SettingsChangedListener
 import star.intellijplugin.pkgfinder.maven.*
+import star.intellijplugin.pkgfinder.setting.PackageFinderSetting
 import star.intellijplugin.pkgfinder.ui.PackageFinderListCellRenderer
 import star.intellijplugin.pkgfinder.ui.borderPanel
 import star.intellijplugin.pkgfinder.ui.boxPanel
@@ -33,7 +35,7 @@ import javax.swing.event.DocumentEvent
  * refer com.jetbrains.python.packaging.toolwindow.packages.table.PyPackagesTable
  *
  * @author drawsta
- * @LastModified: 2025-07-13
+ * @LastModified: 2025-09-08
  * @since 2025-01-16
  */
 class MavenToolWindow(parentDisposable: Disposable) {
@@ -42,10 +44,16 @@ class MavenToolWindow(parentDisposable: Disposable) {
     private val searchTextField: SearchTextField
 
     private val propertyGraph: PropertyGraph = PropertyGraph()
-    private var repoSourceProperty = propertyGraph.lazyProperty { MavenRepositorySource.CENTRAL }
+    private val repoSourceProperty = propertyGraph.lazyProperty {
+        PackageFinderSetting.instance.repoSource
+    }
     private var repoSource: MavenRepositorySource by repoSourceProperty
-    private var dependencyFormatProperty = propertyGraph.lazyProperty { DependencyFormat.GradleGroovyDeclaration }
-    private var dependencyScopeProperty = propertyGraph.lazyProperty { DependencyScope.COMPILE }
+    private val dependencyFormatProperty = propertyGraph.lazyProperty {
+        PackageFinderSetting.instance.dependencyFormat
+    }
+    private val dependencyScopeProperty = propertyGraph.lazyProperty {
+        PackageFinderSetting.instance.dependencyScope
+    }
 
     private val dependencyCache: DependencyCache = DependencyCache()
 
@@ -59,6 +67,17 @@ class MavenToolWindow(parentDisposable: Disposable) {
             }
             add(scrollPanel, BorderLayout.CENTER)
         }
+
+        ApplicationManager.getApplication().messageBus.connect(parentDisposable)
+            .subscribe(SettingsChangedListener.TOPIC, object : SettingsChangedListener {
+                override fun onSettingsChanged() {
+                    ApplicationManager.getApplication().invokeLater {
+                        repoSourceProperty.set(PackageFinderSetting.instance.repoSource)
+                        dependencyFormatProperty.set(PackageFinderSetting.instance.dependencyFormat)
+                        dependencyScopeProperty.set(PackageFinderSetting.instance.dependencyScope)
+                    }
+                }
+            })
 
         // 资源清理
         Disposer.register(parentDisposable) {

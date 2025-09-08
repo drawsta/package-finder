@@ -6,10 +6,15 @@ import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import com.intellij.openapi.diagnostic.Logger
+import com.intellij.util.xmlb.XmlSerializerUtil
+import star.intellijplugin.pkgfinder.listener.SettingsChangedListener
+import star.intellijplugin.pkgfinder.maven.DependencyFormat
+import star.intellijplugin.pkgfinder.maven.DependencyScope
+import star.intellijplugin.pkgfinder.maven.MavenRepositorySource
 
 /**
  * @author drawsta
- * @LastModified: 2025-07-08
+ * @LastModified: 2025-09-08
  * @since 2025-07-08
  */
 @Service(Service.Level.APP)
@@ -25,6 +30,30 @@ class PackageFinderSetting : PersistentStateComponent<PackageFinderSettingState>
             get() = ApplicationManager.getApplication().getService(PackageFinderSetting::class.java)
     }
 
+    var repoSource: MavenRepositorySource
+        get() = myState.repoSource
+        set(value) {
+            myState.repoSource = value
+            log.info("Maven repository source updated to $value")
+            ApplicationManager.getApplication().messageBus.syncPublisher(SettingsChangedListener.TOPIC).onSettingsChanged()
+        }
+
+    var dependencyScope: DependencyScope
+        get() = myState.dependencyScope
+        set(value) {
+            myState.dependencyScope = value
+            log.info("Dependency scope updated to $value")
+            ApplicationManager.getApplication().messageBus.syncPublisher(SettingsChangedListener.TOPIC).onSettingsChanged()
+        }
+
+    var dependencyFormat: DependencyFormat
+        get() = myState.dependencyFormat
+        set(value) {
+            myState.dependencyFormat = value
+            log.info("Dependency format updated to $value")
+            ApplicationManager.getApplication().messageBus.syncPublisher(SettingsChangedListener.TOPIC).onSettingsChanged()
+        }
+
     var nexusServerUrl: String
         get() = myState.nexusServerUrl
         set(value) {
@@ -32,11 +61,14 @@ class PackageFinderSetting : PersistentStateComponent<PackageFinderSettingState>
             log.info("Nexus server url updated to $value")
         }
 
-    override fun getState(): PackageFinderSettingState? {
+    override fun getState(): PackageFinderSettingState {
+        log.info("getState() called, returning myState = $myState")
         return myState
     }
 
     override fun loadState(state: PackageFinderSettingState) {
-        myState = state
+        log.info("loadState(...) called. incoming state = $state")
+        XmlSerializerUtil.copyBean(state, this.myState)
+        log.info("after copyBean, myState = $myState")
     }
 }
